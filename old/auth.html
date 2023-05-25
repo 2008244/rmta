@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Login
+    </title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <br>
+    Username
+    <br>
+    <input type="password" id="user">
+    <br>
+    <br>
+    Password
+    <br>
+    <input type="password" id="pass">
+    <br>
+    <button onclick='submitAuth()'>Authorize</button>
+    <script>
+      var user = document.getElementById('user')
+      var pass = document.getElementById('pass')
+      function submitAuth() {
+        window.location.replace("https://sfxforclass-aa.w3spaces.com/index.html?user=" + btoa(btoa(user.value)) + "&pass=" + btoa(btoa(pass.value)));
+      }
+    </script>
+  </body>
+</html>

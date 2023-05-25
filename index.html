@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>
+      Alice In Wonderland SFX
+      </title>
+    </head>
+<body onload="readyToStart = true; alert('Click to get ready')" onclick="if (readyToStart) {readyToStart = false; alert('Ready'); doAudioAction('next');}">
+
+Made By: Adam Ashour
+<div id="audioContainer">
+<audio controls loop>
+Your browser does not support the audio element.
+</audio>
+</div>
+<button onclick="doAudioAction('back')">Back</button>
+<button onclick="doAudioAction('next')">Next</button>
+<br>
+<br>
+<br>
+<div id="present">
+  Loading...
+</div>
+<script>
+var readyToStart = false;
+var aud1 = (vol) => {return '<audio controls oncanplay="setVolumeAndPlay(this, VOLUMEINPUT)" loop> <source src="'.replace("VOLUMEINPUT", vol)};
+var aud1Special = '<audio controls autoplay> <source src="';
+var aud2 = '" type="audio/mpeg"> Your browser does not support the audio element. </audio>';
+var audio = document.getElementById("audioContainer");
+var present = document.getElementById("present");
+var index = -1;
+var direction;
+// NOT ZERO BASED; First is 1
+const descriptionLibrary = {'1': "Alice Falling Down Rabbit Hole", '2': "Recorder Music", '3': "More Recorder Music", '4': "Door Knocking", '5': "Baby Screams", '6': "More Baby Screams", '7': "Baby Grunt", '8': "Pig Squeal", '9': "Galloping horses", '10': "Egg Cracking", '11': "Tweedle Dance Music", '12': "Trumper Fanfare", '13': "First Trumpet", '14': "Second Trumpet", '15': "Wind Blowing"};
+
+const audioCount = Object.keys(descriptionLibrary).length;
+var audioLibrary = [];
+for (let i = 0; i < audioCount; i++)
+  audioLibrary.push("sounds/" + (i + 1).toString() + ".mp3");
+
+function doAudioAction(action) {
+if (action == "next" && index != audioCount) {
+index++;
+direction = "plus"
+} else if (action == "back" && index != 0){
+index--;
+direction = "minus"
+}
+
+switch (index) {
+  case -1:
+    break;
+  case audioCount:
+    break;
+  default:
+    audio.innerHTML = aud1(2) + audioLibrary[index] + aud2;
+    present.innerHTML = '[' + indexplus() + "]<br>" + descriptionLibrary[indexplus().toString()];
+}
+
+}
+
+function indexplus() {
+  return index + 1;
+}
+function indexlength() {
+return descriptionLibrary.length - 1;
+
+}
+function setVolumeAndPlay(audioElmnt, volume) {
+  console.log("Vol: " + volume);
+  console.log(audioElmnt);
+  // create an audio context and hook up the video element as the source
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var source = audioCtx.createMediaElementSource(audioElmnt);
+  console.log("Audio Ctx: ")
+  console.log(source)
+  // create a gain node
+  console.log("gainNode: ")
+  var gainNode = audioCtx.createGain();
+  console.log(gainNode)
+  console.log("Cur Volume")
+  console.log(gainNode.gain.volume)
+  gainNode.gain.value = volume; // double the volume
+  console.log("new volume")
+  console.log(gainNode.gain.volume)
+  source.connect(gainNode);
+
+  // connect the gain node to an output destination
+  gainNode.connect(audioCtx.destination);
+  audioElmnt.setAttribute("oncanplay", "");
+  audioElmnt.play();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>
+      SFX Project Test
+      </title>
+    </head>
+<body>
+
+Made By: Adam Ashour
+<div id="audioContainer">
+<audio controls loop>
+  <source src="https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/6e3e998b-0dcf-e337-adf3-8fd321cbf8f9.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+</div>
+<button onclick="doAudioAction('back')">Back</button>
+<button onclick="doAudioAction('next')">Next</button>
+<br>
+<br>
+<br>
+<div id="present">
+  1 hip hop music "its fire tho"
+</div>
+<script>
+var aud1 = '<audio controls autoplay loop> <source src="';
+var aud1Special = '<audio controls autoplay> <source src="';
+var aud2 = '" type="audio/mpeg"> Your browser does not support the audio element. </audio>';
+var audio = document.getElementById("audioContainer");
+var present = document.getElementById("present");
+var index = 0;
+var direction;
+const audioLibraryAsInDrive = ["https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/6e3e998b-0dcf-e337-adf3-8fd321cbf8f9.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235624030-44100-2-04088d05b2061.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-10-29/4655ca1b-7f1a-1caf-cecc-31197d58dc12.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/49a606e2-9708-77ab-d5ed-c52f58502c2e.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/28237417-dd4b-9152-e035-c8bb64a3699c.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/e436a6ed-f379-d457-b726-456721ae39fc.mp3",
+"",  
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/b400e015-f1fa-bcf8-036c-e735230d42a8.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-6/235639772-44100-2-af0356c6ad454.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235489765-44100-2-576750a3179d4.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235489785-44100-2-702a9aa411a4e.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/fb16626c-4435-eae9-9dad-f3e28bcb9da7.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/80c972bc-690d-b85e-dead-c069417c70a5.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/61712a38-1834-2906-17c0-5eb7792e6504.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235489843-44100-2-4648f3fdd6c1c.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/4cdc12e2-bd11-5025-8f53-c1309afb55ae.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/6e3e998b-0dcf-e337-adf3-8fd321cbf8f9.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235624832-22050-1-a2a67aa821496.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/f61e49fe-bbc1-ddc5-df57-8f191dbc85c9.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/a1868711-1004-5afe-0c92-7044ac8e577e.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/1185dbdb-a7a4-402b-507d-89921202e036.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/0a8a28dd-ac41-f540-fbe6-43dfddfd654a.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235625470-44100-2-055f4426b8adc.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235625470-44100-2-055f4426b8adc.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235625997-44100-2-dec16c588facf.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235626482-44100-2-370f8feca2f5d.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/0d252750-b49c-a7c4-d7fc-6e2fc567e88e.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/39f8a377-88b3-2cc7-2e9f-f60c44d60ff6.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/c678934a-0475-c885-890a-3e57ad5538a8.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/68bed3fd-3008-2e2b-2bb8-1b49616adfc1.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/68bed3fd-3008-2e2b-2bb8-1b49616adfc1.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-6/235639984-44100-2-4e02a894e52c7.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235632364-44100-2-03b35e333b9d9.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/0fb84667-5c32-8875-64ad-8cdd67d839e3.mp3"
+];
+const audioLibrary = ["https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/6e3e998b-0dcf-e337-adf3-8fd321cbf8f9.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235624030-44100-2-04088d05b2061.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-10-29/4655ca1b-7f1a-1caf-cecc-31197d58dc12.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/49a606e2-9708-77ab-d5ed-c52f58502c2e.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/28237417-dd4b-9152-e035-c8bb64a3699c.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/e436a6ed-f379-d457-b726-456721ae39fc.mp3",
+"",  
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/b400e015-f1fa-bcf8-036c-e735230d42a8.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-6/235639772-44100-2-af0356c6ad454.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235489765-44100-2-576750a3179d4.m4a", 
+"", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/fb16626c-4435-eae9-9dad-f3e28bcb9da7.mp3", 
+"", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/61712a38-1834-2906-17c0-5eb7792e6504.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235489843-44100-2-4648f3fdd6c1c.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/4cdc12e2-bd11-5025-8f53-c1309afb55ae.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/6e3e998b-0dcf-e337-adf3-8fd321cbf8f9.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235624832-22050-1-a2a67aa821496.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/f61e49fe-bbc1-ddc5-df57-8f191dbc85c9.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/a1868711-1004-5afe-0c92-7044ac8e577e.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/1185dbdb-a7a4-402b-507d-89921202e036.mp3", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/0a8a28dd-ac41-f540-fbe6-43dfddfd654a.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235625470-44100-2-055f4426b8adc.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235625997-44100-2-dec16c588facf.m4a", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235626482-44100-2-370f8feca2f5d.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/0d252750-b49c-a7c4-d7fc-6e2fc567e88e.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/39f8a377-88b3-2cc7-2e9f-f60c44d60ff6.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/c678934a-0475-c885-890a-3e57ad5538a8.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/68bed3fd-3008-2e2b-2bb8-1b49616adfc1.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/68bed3fd-3008-2e2b-2bb8-1b49616adfc1.mp3", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-6/235639984-44100-2-4e02a894e52c7.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/235632364-44100-2-03b35e333b9d9.m4a", 
+"", 
+"https://d3ctxlq1ktw2nl.cloudfront.net/staging/2021-11-5/0fb84667-5c32-8875-64ad-8cdd67d839e3.mp3"
+];
+const descriptionLibraryAsInDrive = ['1 hip hop music   "its fire tho"', 
+'2 music set to fade', 
+'3 footsteps trudging up stairs', 
+'<div style="color: red">Press to Continue Buzzing</div> <br> 4 flies buzzing', 
+'5 continued buzzing', 
+'6 fists ~ to repeat', 
+'7 jaleeyah~ bird wings flapping', 
+'8 bird tweets~ jaleeyah', 
+'9 boots walking in busy area~ jaleeyah', 
+'10 boots walking in busy place stop ~jaleeyah', 
+'11 boots walking ~jaleeyah', 
+'12 boots stop~ end sound~jaleeyah',
+'13 - Giant Exerting Effort', 
+'13.5 Sound Of Water Into Glass', 
+'14 - Squeaking Sound', 
+'15 hip hop music   "its fire tho"', 
+'16 Commercial Music', 
+'17 Cup and Spoon Stirring', 
+'17.5 Girl Giggling', 
+'18 Cow Moos 2x', 
+'18.5 Cowbell',
+'(1) 19-20 theme music and music out', 
+'(2) 19-20 theme music and music out', 
+'21 birds tweet', 
+'21 flapping', 
+'22 boots walking ~ daniel', 
+'23 leaves', 
+'24 horse hooves gallop', 
+'25- coins [#...]', 
+'26- coins [#...]', 
+'27- horse galloping [#...]', 
+'28- boots running [#...]', 
+'29 - Theme Music Up and Under']
+
+const descriptionLibrary = ['1 hip hop music   "its fire tho"', 
+'<div style="color: red">Press to Wait</div> <br> 2 music set to fade', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 3 footsteps trudging up stairs', 
+"", 
+'<div style="color: red">Press to Continue Buzzing</div> <br> 4 flies buzzing', 
+'5 continued buzzing', 
+'<div style="color: red">Let This Repeat, Then Press to Wait</div> <br> 6 fists ~ to repeat', 
+"", 
+'7 jaleeyah~ bird wings flapping', 
+'8 bird tweets~ jaleeyah', 
+'<div style="color: red">Press to Stop</div> <br> 9 boots walking in busy area~ jaleeyah', 
+'<div style="color: red">Press to Wait</div> <br> 10 boots walking in busy place stop ~jaleeyah', 
+"", 
+'<div style="color: red">Press to Stop</div> <br> 11 boots walking ~jaleeyah', 
+'<div style="color: red">Press to Wait</div> <br> 12 boots stop~ end sound~jaleeyah',
+"", 
+'13 - Giant Exerting Effort', 
+'<div style="color: red">Press to Wait</div> <br> 13.5 Sound Of Water Into Glass', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 14 - Squeaking Sound',
+"",  
+'15 hip hop music   "its fire tho"', 
+'16 Commercial Music', 
+'17 Cup and Spoon Stirring', 
+'17.5 Girl Giggling', 
+'<div style="color: red">Let This Repeat, Then Press to Wait</div> <br> 18 Cow Moos 2x', 
+'18.5 Cowbell',
+"", 
+'<div style="color: red">Press to Stop + Wait</div> <br> (1) 19-20 theme music and music out', 
+'<div style="color: red">Stopped + Waiting</div> <br> (2) 19-20 theme music and music out', 
+'<div style="color: red">Press to Wait</div> <br> 21 birds tweet', 
+'21 flapping', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 22 boots walking ~ daniel', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 23 leaves', 
+"", 
+'<div style="color: red">Press to Stop + Wait</div> <br> 24 horse hooves gallop', 
+"Stopped + Waiting", 
+'<div style="color: red">Press to Wait</div> <br> 25- coins [#...]', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 26- coins [#...]', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 27- horse galloping [#...]', 
+"", 
+'<div style="color: red">Press to Wait</div> <br> 28- boots running [#...]', 
+"", 
+'29 - Theme Music Up and Under'];
+function doAudioAction(action) {
+if (action == "next" && index != indexlength()) {
+index++;
+direction = "plus"
+} else if (action == "back" && index != 0){
+index--;
+direction = "minus"
+}
+if (index == 9) {
+  //bird wings and flapping
+audio.innerHTML = aud1 + audioLibrary[index] + aud2 + aud1 + audioLibrary[indexplus()] + aud2;
+present.innerHTML = descriptionLibrary[index] + "<br>" + '[' + index + ']';
+
+
+} else if (index == 24) {
+  // giggling and spoon stirring
+var node = document.createElement("DIV");
+var textnode = aud1Special + audioLibrary[index] + aud2 + aud1Special + audioLibrary[indexplus()] + aud2;
+node.innerHTML = textnode;
+audio.appendChild(node);
+present.innerHTML = descriptionLibrary[index] + "<br>" + descriptionLibrary[indexplus()] + "<br>" + '[' + index + ']';
+if (direction == "plus") {
+index++;
+}
+
+
+} else if (index == 26) {
+  //cast moos and bells
+audio.innerHTML = aud1 + audioLibrary[index] + aud2 + aud1 + audioLibrary[indexplus()] + aud2;
+present.innerHTML = descriptionLibrary[index] + "<br>" + descriptionLibrary[indexplus()] + "<br>" + '[' + index + ']';
+if (direction == "plus") {
+index++;
+}
+
+
+} else if (index == 31) {
+audio.innerHTML = aud1 + audioLibrary[index] + aud2 + aud1 + audioLibrary[indexplus()] + aud2;
+present.innerHTML = descriptionLibrary[index] + "<br>" + descriptionLibrary[indexplus()] + "<br>" + '[' + index + ']';
+if (direction == "plus") {
+index++;
+}
+
+} else {
+audio.innerHTML = aud1 + audioLibrary[index] + aud2;
+present.innerHTML = descriptionLibrary[index] + "<br>" + '[' + index + ']';
+}
+}
+
+function indexplus() {
+  return index + 1;
+}
+function indexlength() {
+return descriptionLibrary.length - 1;
+
+}
+</script>
+
+</body>
+</html>
