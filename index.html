@@ -23,7 +23,7 @@ Your browser does not support the audio element.
 </div>
 <script>
 var readyToStart = false;
-var aud1 = '<audio controls oncanplay="setVolumeAndPlay(this, VOLUMEINPUT)" loop> <source src="'.replace("VOLUMEINPUT", vol);
+var aud1 = '<audio controls autoplay loop> <source src="';
 var aud1Special = '<audio controls autoplay> <source src="';
 var aud2 = '" type="audio/mpeg"> Your browser does not support the audio element. </audio>';
 var audio = document.getElementById("audioContainer");
