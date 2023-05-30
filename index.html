@@ -1,72 +1,70 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <title>
-      Alice In Wonderland SFX
-      </title>
-    </head>
+
+<head>
+  <title>
+    Alice In Wonderland SFX 5/30/23
+  </title>
+</head>
+
 <body onload="doAudioAction('next');">
 
-Made By: Adam Ashour
-<div id="audioContainer">
-<audio controls loop>
-Your browser does not support the audio element.
-</audio>
-</div>
-<button onclick="doAudioAction('back')">Back</button>
-<button onclick="doAudioAction('next')">Next</button>
-<br>
-<br>
-<br>
-<div id="present">
-  Loading...
-</div>
-<script>
-var readyToStart = false;
-var aud1 = '<audio controls autoplay loop> <source src="';
-var aud1Special = '<audio controls autoplay> <source src="';
-var aud2 = '" type="audio/mpeg"> Your browser does not support the audio element. </audio>';
-var audio = document.getElementById("audioContainer");
-var present = document.getElementById("present");
-var index = -1;
-var direction;
-// NOT ZERO BASED; First is 1
-const descriptionLibrary = {'1': "Alice Falling Down Rabbit Hole", '2': "Recorder Music", '3': "More Recorder Music", '4': "Door Knocking", '5': "Baby Screams", '6': "More Baby Screams", '7': "Baby Grunt", '8': "Pig Squeal", '9': "Galloping horses", '10': "Egg Cracking", '11': "Tweedle Dance Music", '12': "Trumper Fanfare", '13': "First Trumpet", '14': "Second Trumpet", '15': "Wind Blowing"};
+  Made By: Adam Ashour
+  <div id="audioContainer">
+    <audio controls loop>
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+  <button onclick="doAudioAction('back')">Back</button>
+  <button onclick="doAudioAction('next')">Next</button>
+  <br>
+  <br>
+  <br>
+  <div id="present">
+    Loading...
+  </div>
+  <script>
+    var readyToStart = false;
+    var aud1 = '<audio controls autoplay loop> <source src="';
+    var aud1Special = '<audio controls autoplay> <source src="';
+    var aud2 = '" type="audio/mpeg"> Your browser does not support the audio element. </audio>';
+    var audio = document.getElementById("audioContainer");
+    var present = document.getElementById("present");
+    var index = -1;
+    var direction;
+    // NOT ZERO BASED; First is 1
+    const descriptionLibraryAndLoop = { '1': ["Alice Falling Down Rabbit Hole", /* loop: */false], '2': ["Recorder Music", false], '3': ["More Recorder Music", false], '4': ["Door Knocking", false], '5': ["Baby Screams", false], '6': ["More Baby Screams", false], '7': ["Baby Grunt", true], '8': ["Pig Squeal", false], '9': ["Galloping horses", false], '10': ["Egg Cracking", false], '11': ["Tweedle Dance Music", false], '12': ["Trumper Fanfare", false], '13': ["First Trumpet", false], '14': ["Second Trumpet", false], '15': ["Wind Blowing", false] };
 
-const audioCount = Object.keys(descriptionLibrary).length;
-var audioLibrary = [];
-for (let i = 0; i < audioCount; i++)
-  audioLibrary.push("sounds/" + (i + 1).toString() + ".mp3");
+    const audioCount = Object.keys(descriptionLibraryAndLoop).length * 2;
+    var audioLibrary = [];
+    for (let i = 0; i < audioCount; i++)
+      audioLibrary.push((i + 1) % 2 == 0 ? "" : "sounds/" + ((i + 2) / 2).toString() + ".mp3");
+    function doAudioAction(action) {
+      if (action == "next" && index != audioCount) {
+        index++;
+        direction = "plus"
+      } else if (action == "back" && index != 0) {
+        index--;
+        direction = "minus"
+      }
+      switch (index) {
+        case -1:
+          break;
+        case audioCount:
+          break;
+        default:
+          let descriptionAndLoop = descriptionLibraryAndLoop[((index + 2) / 2).toString()];
+          audio.innerHTML = ((index + 1) % 2 == 0 ? aud1 : (descriptionAndLoop[1] ? aud1 : aud1Special)) + audioLibrary[index] + aud2;
+          present.innerHTML = (index + 1) % 2 == 0 ? "Stopped" : '[' + (index / 2 + 1).toString() + "]<br>" + descriptionAndLoop[0];
+      }
 
-function doAudioAction(action) {
-if (action == "next" && index != audioCount) {
-index++;
-direction = "plus"
-} else if (action == "back" && index != 0){
-index--;
-direction = "minus"
-}
+    }
+    function indexlength() {
+      return descriptionLibraryAndLoop.length - 1;
 
-switch (index) {
-  case -1:
-    break;
-  case audioCount:
-    break;
-  default:
-    audio.innerHTML = aud1 + audioLibrary[index] + aud2;
-    present.innerHTML = '[' + indexplus() + "]<br>" + descriptionLibrary[indexplus().toString()];
-}
-
-}
-
-function indexplus() {
-  return index + 1;
-}
-function indexlength() {
-return descriptionLibrary.length - 1;
-
-}
-</script>
+    }
+  </script>
 
 </body>
+
 </html>
